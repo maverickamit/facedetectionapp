@@ -70,21 +70,21 @@ var Params = {
     }
   },
   interactivity: {
-    detect_on: "canvas",
+    detect_on: "window",
     events: {
       onhover: {
         enable: true,
-        mode: "repulse"
+        mode: "grab"
       },
       onclick: {
-        enable: true,
+        enable: false,
         mode: "push"
       },
       resize: true
     },
     modes: {
       grab: {
-        distance: 400,
+        distance: 200,
         line_linked: {
           opacity: 1
         }
