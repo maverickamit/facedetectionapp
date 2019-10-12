@@ -4,6 +4,7 @@ import Navigation from "./components/navigation/navigation";
 import Logo from "./components/logo/logo";
 import InputForm from "./components/inputform/inputform";
 import Rank from "./components/rank/rank";
+import FaceDetection from "./components/facedetection/facedetection";
 
 import Particles from "react-particles-js";
 import Tachyons from "tachyons/css/tachyons.min.css";
@@ -18,16 +19,20 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      input: ""
+      input: "",
+      imageUrl: ""
     };
   }
 
   onInputChange = event => {
     console.log(event.target.value);
+    this.setState({ input: event.target.value });
   };
 
   onButtonSubmit = event => {
     console.log("click");
+
+    this.setState({ imageUrl: this.state.input });
     app.models
       .predict(
         "0cdeeb12db6143eb91e0268d7f004ccf",
@@ -54,7 +59,7 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        {/* <facedetection /> */}
+        <FaceDetection imageUrl={this.state.imageUrl} />
       </div>
     );
   }
