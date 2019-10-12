@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
 import Navigation from "./components/navigation/navigation";
 import Logo from "./components/logo/logo";
@@ -9,18 +9,31 @@ import Particles from "react-particles-js";
 import Tachyons from "tachyons/css/tachyons.min.css";
 import Params from "./pointers";
 
-function App() {
-  return (
-    <div className="App">
-      <Particles params={Params} className="particles" />
-      <Navigation />
-      <Logo />
-      <Rank />
-      <InputForm />
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      input: ""
+    };
+  }
 
-      {/* <facedetection /> */}
-    </div>
-  );
+  onInputChange = event => {
+    console.log(event.target.value);
+  };
+
+  
+  render() {
+    return (
+      <div className="App">
+        <Particles params={Params} className="particles" />
+        <Navigation />
+        <Logo />
+        <Rank />
+        <InputForm onInputChange={this.onInputChange} />
+        {/* <facedetection /> */}
+      </div>
+    );
+  }
 }
 
 export default App;

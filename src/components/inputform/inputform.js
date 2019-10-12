@@ -1,6 +1,6 @@
 import React from "react";
 import "./inputform.css";
-const InputForm = () => {
+const InputForm = ({ onInputChange }) => {
   return (
     <div>
       <p className="f3">
@@ -12,6 +12,7 @@ const InputForm = () => {
             className="f4 pa2 w-70 grow center"
             type="text"
             placeholder="Enter the URL to your picture"
+            onChange={onInputChange}
           />
           <button className="w-30 grow f4 link ph3 pv2 dib white bg-light-purple">
             Detect
