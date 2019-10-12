@@ -8,6 +8,11 @@ import Rank from "./components/rank/rank";
 import Particles from "react-particles-js";
 import Tachyons from "tachyons/css/tachyons.min.css";
 import Params from "./pointers";
+import Clarifai from "clarifai";
+
+const app = new Clarifai.App({
+  apiKey: "0cdeeb12db6143eb91e0268d7f004ccf"
+});
 
 class App extends Component {
   constructor() {
@@ -23,6 +28,19 @@ class App extends Component {
 
   onButtonSubmit = event => {
     console.log("click");
+    app.models
+      .predict(
+        "0cdeeb12db6143eb91e0268d7f004ccf",
+        "https://samples.clarifai.com/face-det.jpg"
+      )
+      .then(
+        function(response) {
+          // do something with response
+        },
+        function(err) {
+          // there was an error
+        }
+      );
   };
 
   render() {
