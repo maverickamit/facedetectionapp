@@ -12,7 +12,7 @@ import Params from "./pointers";
 import Clarifai from "clarifai";
 
 const app = new Clarifai.App({
-  apiKey: "0cdeeb12db6143eb91e0268d7f004ccf"
+  apiKey: "adf356b58c634ee98c2d9de8859629a6"
 });
 
 class App extends Component {
@@ -20,9 +20,27 @@ class App extends Component {
     super();
     this.state = {
       input: "",
-      imageUrl: ""
+      imageUrl: "",
+      box: {}
     };
   }
+
+  calculateFaceLocation = response => {
+    const ClarifaiBox =
+      response.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputimage");
+    const width = Number(image.width);
+    const height = Number(image.height);
+    console.log(width, height, ClarifaiBox.top_row);
+    return {
+      leftcol: ClarifaiBox.left_col * width,
+      toprow: ClarifaiBox.top_row * height,
+      rightcol: width - ClarifaiBox.right_col * width,
+      bottomrow: height - ClarifaiBox.bottom_row * height
+    };
+  };
+
+  
 
   onInputChange = event => {
     this.setState({ input: event.target.value });
@@ -33,18 +51,13 @@ class App extends Component {
 
     this.setState({ imageUrl: this.state.input });
     app.models
-      .predict(
-        "0cdeeb12db6143eb91e0268d7f004ccf",
-        "://samples.clarifai.com/face-det.jpg"
-      )
-      .then(
-        function(response) {
-          // do something with response
-        },
-        function(err) {
-          // there was an error
-        }
-      );
+      .predict("a403429f2ddf4b49b307e318f00e528b", this.state.input)
+      .then(response => this.calculateFaceLocation(response))
+
+      // response.outputs[0].data.regions[0].region_info.bounding_box
+
+      .catch(err => console.log("Error"));
+    // there was an error
   };
 
   render() {
