@@ -25,7 +25,6 @@ class App extends Component {
   }
 
   onInputChange = event => {
-    console.log(event.target.value);
     this.setState({ input: event.target.value });
   };
 
@@ -36,7 +35,7 @@ class App extends Component {
     app.models
       .predict(
         "0cdeeb12db6143eb91e0268d7f004ccf",
-        "https://samples.clarifai.com/face-det.jpg"
+        "://samples.clarifai.com/face-det.jpg"
       )
       .then(
         function(response) {
