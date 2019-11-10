@@ -1,5 +1,3 @@
-import React from "react";
-
 var Params = {
   particles: {
     number: {

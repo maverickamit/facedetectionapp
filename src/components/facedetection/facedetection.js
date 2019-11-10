@@ -13,7 +13,7 @@ const FaceDetection = ({ imageUrl, box }) => {
           height="auto"
         />
         <div
-          class="bounding-box"
+          className="bounding-box"
           style={{
             top: box.toprow,
             bottom: box.bottomrow,

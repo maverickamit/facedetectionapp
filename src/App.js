@@ -60,11 +60,7 @@ class App extends Component {
       .then(response =>
         this.displayBoundingBox(this.calculateFaceLocation(response))
       )
-
-      // response.outputs[0].data.regions[0].region_info.bounding_box
-
       .catch(err => console.log("Error"));
-    // there was an error
   };
 
   onRouteChange = route => {
@@ -77,15 +73,16 @@ class App extends Component {
   };
 
   render() {
+    const { isSignedIn, imageUrl, route, box } = this.state;
     return (
       <div className="App">
         <Particles params={Params} className="particles" />
         <Navigation
-          isSignedIn={this.state.isSignedIn}
+          isSignedIn={isSignedIn}
           onRouteChange={this.onRouteChange}
         />
 
-        {this.state.route === "home" ? (
+        {route === "home" ? (
           <div>
             <Logo />
             <Rank />
@@ -93,12 +90,9 @@ class App extends Component {
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onButtonSubmit}
             />
-            <FaceDetection
-              box={this.state.box}
-              imageUrl={this.state.imageUrl}
-            />
+            <FaceDetection box={box} imageUrl={imageUrl} />
           </div>
-        ) : this.state.route === "signin" ? (
+        ) : route === "signin" ? (
           <div>
             <SignIn onRouteChange={this.onRouteChange} />
           </div>
