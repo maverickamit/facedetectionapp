@@ -7,7 +7,7 @@ const FaceDetection = ({ imageUrl, box }) => {
       <div className="absolute mt3">
         <img
           id="inputimage"
-          alt=" "
+          alt=""
           src={imageUrl}
           width="500px"
           height="auto"

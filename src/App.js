@@ -6,9 +6,10 @@ import InputForm from "./components/inputform/inputform";
 import Rank from "./components/rank/rank";
 import FaceDetection from "./components/facedetection/facedetection";
 import SignIn from "./components/signin/signin";
+import Register from "./components/registration/registration";
 
 import Particles from "react-particles-js";
-import Tachyons from "tachyons/css/tachyons.min.css";
+import "tachyons/css/tachyons.min.css";
 import Params from "./pointers";
 import Clarifai from "clarifai";
 
@@ -74,9 +75,7 @@ class App extends Component {
     return (
       <div className="App">
         <Particles params={Params} className="particles" />
-        {this.state.route === "signin" ? (
-          <SignIn onRouteChange={this.onRouteChange} />
-        ) : (
+        {this.state.route === "home" ? (
           <div>
             <Navigation onRouteChange={this.onRouteChange} />
             <Logo />
@@ -90,6 +89,12 @@ class App extends Component {
               imageUrl={this.state.imageUrl}
             />
           </div>
+        ) : this.state.route === "signin" ? (
+          <div>
+            <SignIn onRouteChange={this.onRouteChange} />
+          </div>
+        ) : (
+          <Register onRouteChange={this.onRouteChange} />
         )}
       </div>
     );
