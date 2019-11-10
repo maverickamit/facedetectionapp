@@ -7,9 +7,7 @@ const SignIn = ({ onRouteChange }) => {
         <main className="pa4 black-80">
           <form className="measure">
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-              <legend className="f2 fw6 ph0 mh0" >
-                Sign In
-              </legend>
+              <legend className="f2 fw6 ph0 mh0">Sign In</legend>
               <div className="mt3">
                 <label className="db fw6 lh-copy f6" for="email-address">
                   Email
@@ -36,7 +34,7 @@ const SignIn = ({ onRouteChange }) => {
             </fieldset>
             <div className="">
               <input
-                onClick={onRouteChange}
+                onClick={() => onRouteChange("home")}
                 className="b pa2 ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                 type="submit"
                 value="Sign in"
