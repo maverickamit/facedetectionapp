@@ -7,7 +7,6 @@ import Rank from "./components/rank/rank";
 import FaceDetection from "./components/facedetection/facedetection";
 import SignIn from "./components/signin/signin";
 import Register from "./components/registration/registration";
-
 import Particles from "react-particles-js";
 import "tachyons/css/tachyons.min.css";
 import Params from "./pointers";
@@ -24,7 +23,8 @@ class App extends Component {
       input: "",
       imageUrl: "",
       box: {},
-      route: "signin"
+      route: "signin",
+      isSignedIn: false
     };
   }
 
@@ -68,6 +68,11 @@ class App extends Component {
   };
 
   onRouteChange = route => {
+    if (route === "signout") {
+      this.setState({ isSignedIn: false });
+    } else if (route === "home") {
+      this.setState({ isSignedIn: true });
+    }
     this.setState({ route: route });
   };
 
@@ -75,9 +80,13 @@ class App extends Component {
     return (
       <div className="App">
         <Particles params={Params} className="particles" />
+        <Navigation
+          isSignedIn={this.state.isSignedIn}
+          onRouteChange={this.onRouteChange}
+        />
+
         {this.state.route === "home" ? (
           <div>
-            <Navigation onRouteChange={this.onRouteChange} />
             <Logo />
             <Rank />
             <InputForm
