@@ -5,6 +5,7 @@ import Logo from "./components/logo/logo";
 import InputForm from "./components/inputform/inputform";
 import Rank from "./components/rank/rank";
 import FaceDetection from "./components/facedetection/facedetection";
+import SignIn from "./components/signin/signin";
 
 import Particles from "react-particles-js";
 import Tachyons from "tachyons/css/tachyons.min.css";
@@ -21,7 +22,8 @@ class App extends Component {
     this.state = {
       input: "",
       imageUrl: "",
-      box: {}
+      box: {},
+      route: "signin"
     };
   }
 
@@ -64,18 +66,31 @@ class App extends Component {
     // there was an error
   };
 
+  onRouteChange = () => {
+    this.setState({ route: "home" });
+  };
+
   render() {
     return (
       <div className="App">
         <Particles params={Params} className="particles" />
         <Navigation />
-        <Logo />
-        <Rank />
-        <InputForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
-        />
-        <FaceDetection box={this.state.box} imageUrl={this.state.imageUrl} />
+        {this.state.route === "signin" ? (
+          <SignIn onRouteChange={this.onRouteChange} />
+        ) : (
+          <div>
+            <Logo />
+            <Rank />
+            <InputForm
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit}
+            />
+            <FaceDetection
+              box={this.state.box}
+              imageUrl={this.state.imageUrl}
+            />
+          </div>
+        )}
       </div>
     );
   }
