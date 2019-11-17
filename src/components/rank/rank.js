@@ -1,7 +1,14 @@
 import React from "react";
 
-const Rank = () => {
-  return <h3>Tom, you are ranked #5! </h3>;
+const Rank = ({ name, entries }) => {
+  return (
+    <div>
+      <div className="white f3">
+        {`${name}, your current entry count is...`}
+      </div>
+      <div className="white f1">{entries}</div>
+    </div>
+  );
 };
 
 export default Rank;

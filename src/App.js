@@ -104,7 +104,10 @@ class App extends Component {
         {route === "home" ? (
           <div>
             <Logo />
-            <Rank />
+            <Rank
+              name={this.state.user.name}
+              entries={this.state.user.entries}
+            />
             <InputForm
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onButtonSubmit}
