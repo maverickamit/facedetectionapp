@@ -61,7 +61,22 @@ class App extends Component {
   };
 
   onButtonSubmit = event => {
-    console.log("click");
+    fetch("http://localhost:3000/image", {
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: this.state.user.id
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          user: {
+            ...this.state.user,
+            entries: data
+          }
+        });
+      });
 
     this.setState({ imageUrl: this.state.input });
     app.models
