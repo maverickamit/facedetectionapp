@@ -26,13 +26,15 @@ class SignIn extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        if (data === "success") {
+        if (data.email === this.state.signInEmail) {
           this.props.onRouteChange("home");
+          this.props.loadUser(data);
         } else {
           console.log(data);
           alert("Wrong combination of username and password");
         }
-      });
+      })
+      .then();
   };
 
   render() {
