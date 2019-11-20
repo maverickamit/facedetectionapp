@@ -21,7 +21,6 @@ class Register extends Component {
   };
 
   onSubmitRegister = () => {
-    this.props.onRouteChange("home");
     fetch("http://localhost:3000/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -33,7 +32,13 @@ class Register extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.props.loadUser(data);
+        if (data === "unable to register") {
+          alert("Unable to Register");
+          this.props.onRouteChange("register");
+        } else {
+          this.props.onRouteChange("home");
+          this.props.loadUser(data);
+        }
       });
   };
 
