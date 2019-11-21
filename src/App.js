@@ -10,11 +10,6 @@ import Register from "./components/registration/registration";
 import Particles from "react-particles-js";
 import "tachyons/css/tachyons.min.css";
 import Params from "./pointers";
-import Clarifai from "clarifai";
-
-const app = new Clarifai.App({
-  apiKey: "adf356b58c634ee98c2d9de8859629a6"
-});
 
 const initialState = {
   input: "",
@@ -79,12 +74,18 @@ class App extends Component {
       });
 
     this.setState({ imageUrl: this.state.input });
-    app.models
-      .predict("a403429f2ddf4b49b307e318f00e528b", this.state.input)
+    fetch("http://localhost:3000/imageurl", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+      .then(response => response.json())
       .then(response =>
         this.displayBoundingBox(this.calculateFaceLocation(response))
       )
-      .catch(err => console.log("Error"));
+      .catch(err => console.log(err));
   };
 
   onRouteChange = route => {
