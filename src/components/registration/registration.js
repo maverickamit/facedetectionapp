@@ -6,7 +6,8 @@ class Register extends Component {
     this.state = {
       registeredName: "",
       registeredEmail: "",
-      registeredPassword: ""
+      registeredPassword: "",
+      isButtonLoading: false
     };
   }
   onNameChange = event => {
@@ -21,8 +22,7 @@ class Register extends Component {
   };
 
   onSubmitRegister = () => {
-    
-
+    this.setState({ isButtonLoading: true });
     fetch("https://radiant-basin-43552.herokuapp.com/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -34,6 +34,7 @@ class Register extends Component {
     })
       .then(response => response.json())
       .then(data => {
+        this.setState({ isButtonLoading: false });
         if (data === "unable to register") {
           alert("Unable to Register");
           this.props.onRouteChange("register");
@@ -91,14 +92,26 @@ class Register extends Component {
                 </div>
                 <label className="pa0 ma0 lh-copy f6 pointer"> </label>
               </fieldset>
-              <div className="">
-                <input
-                  onClick={this.onSubmitRegister}
-                  className="b pa2 ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                  type="submit"
-                  value="Register"
-                />
-              </div>
+
+              {this.state.isButtonLoading ? (
+                <div className="">
+                  <input
+                    onClick={this.onSubmitRegister}
+                    className="b pa2 ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                    type="submit"
+                    value="Loading"
+                  />
+                </div>
+              ) : (
+                <div className="">
+                  <input
+                    onClick={this.onSubmitRegister}
+                    className="b pa2 ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                    type="submit"
+                    value="Register"
+                  />
+                </div>
+              )}
               <div className="lh-copy mt3">
                 <p
                   onClick={() => onRouteChange("signin")}
