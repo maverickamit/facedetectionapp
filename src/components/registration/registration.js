@@ -7,17 +7,17 @@ class Register extends Component {
       registeredName: "",
       registeredEmail: "",
       registeredPassword: "",
-      isButtonLoading: false
+      isButtonLoading: false,
     };
   }
-  onNameChange = event => {
+  onNameChange = (event) => {
     this.setState({ registeredName: event.target.value });
   };
 
-  onEmailChange = event => {
+  onEmailChange = (event) => {
     this.setState({ registeredEmail: event.target.value });
   };
-  onPasswordChange = event => {
+  onPasswordChange = (event) => {
     this.setState({ registeredPassword: event.target.value });
   };
 
@@ -29,11 +29,11 @@ class Register extends Component {
       body: JSON.stringify({
         name: this.state.registeredName,
         email: this.state.registeredEmail,
-        password: this.state.registeredPassword
-      })
+        password: this.state.registeredPassword,
+      }),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.setState({ isButtonLoading: false });
         if (data === "unable to register") {
           alert("Unable to Register");
@@ -99,7 +99,7 @@ class Register extends Component {
                     onClick={this.onSubmitRegister}
                     className="b pa2 ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                     type="submit"
-                    value="Loading"
+                    value="Loading, Please Wait"
                   />
                 </div>
               ) : (

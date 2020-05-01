@@ -6,13 +6,13 @@ class SignIn extends Component {
     this.state = {
       signInEmail: "",
       signInPassword: "",
-      isButtonLoading: false
+      isButtonLoading: false,
     };
   }
-  onEmailChange = event => {
+  onEmailChange = (event) => {
     this.setState({ signInEmail: event.target.value });
   };
-  onPasswordChange = event => {
+  onPasswordChange = (event) => {
     this.setState({ signInPassword: event.target.value });
   };
 
@@ -23,11 +23,11 @@ class SignIn extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: this.state.signInEmail,
-        password: this.state.signInPassword
-      })
+        password: this.state.signInPassword,
+      }),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.setState({ isButtonLoading: false });
         if (data.email === this.state.signInEmail) {
           this.props.onRouteChange("home");
@@ -80,7 +80,7 @@ class SignIn extends Component {
                     onClick={this.onSubmitSignin}
                     className="b pa2 ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                     type="submit"
-                    value="Loading"
+                    value="Loading, Please Wait"
                   />
                 </div>
               ) : (
@@ -99,6 +99,10 @@ class SignIn extends Component {
                   className="f5 pa3 link dim black db pointer"
                 >
                   Register
+                </p>
+                <p>
+                  For Testing Purpose Use <br></br>Email: test123@gmail.com,
+                  Password: test123
                 </p>
               </div>
             </div>
