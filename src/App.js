@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import Navigation from "./components/navigation/navigation";
-import Logo from "./components/logo/logo";
 import InputForm from "./components/inputform/inputform";
 import Rank from "./components/rank/rank";
 import FaceDetection from "./components/facedetection/facedetection";
@@ -22,8 +21,8 @@ const initialState = {
     name: "",
     email: "",
     entries: 0,
-    joined: ""
-  }
+    joined: "",
+  },
 };
 
 class App extends Component {
@@ -32,7 +31,7 @@ class App extends Component {
     this.state = initialState;
   }
 
-  calculateFaceLocation = response => {
+  calculateFaceLocation = (response) => {
     const ClarifaiBox =
       response.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById("inputimage");
@@ -43,33 +42,33 @@ class App extends Component {
       leftcol: ClarifaiBox.left_col * width,
       toprow: ClarifaiBox.top_row * height,
       rightcol: width - ClarifaiBox.right_col * width,
-      bottomrow: height - ClarifaiBox.bottom_row * height
+      bottomrow: height - ClarifaiBox.bottom_row * height,
     };
   };
 
-  displayBoundingBox = box => {
+  displayBoundingBox = (box) => {
     this.setState({ box: box });
   };
 
-  onInputChange = event => {
+  onInputChange = (event) => {
     this.setState({ input: event.target.value });
   };
 
-  onButtonSubmit = event => {
+  onButtonSubmit = (event) => {
     fetch("https://radiant-basin-43552.herokuapp.com/image", {
       method: "put",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        id: this.state.user.id
-      })
+        id: this.state.user.id,
+      }),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.setState({
           user: {
             ...this.state.user,
-            entries: data
-          }
+            entries: data,
+          },
         });
       });
 
@@ -78,17 +77,17 @@ class App extends Component {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        input: this.state.input
-      })
+        input: this.state.input,
+      }),
     })
-      .then(response => response.json())
-      .then(response =>
+      .then((response) => response.json())
+      .then((response) =>
         this.displayBoundingBox(this.calculateFaceLocation(response))
       )
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  onRouteChange = route => {
+  onRouteChange = (route) => {
     if (route === "signout") {
       this.setState(initialState);
     } else if (route === "home") {
@@ -97,15 +96,15 @@ class App extends Component {
     this.setState({ route: route });
   };
 
-  loadUser = data => {
+  loadUser = (data) => {
     this.setState({
       user: {
         id: data.id,
         name: data.name,
         email: data.email,
         entries: data.entries,
-        joined: data.joined
-      }
+        joined: data.joined,
+      },
     });
   };
 
@@ -121,7 +120,6 @@ class App extends Component {
 
         {route === "home" ? (
           <div>
-            <Logo />
             <Rank
               name={this.state.user.name}
               entries={this.state.user.entries}
